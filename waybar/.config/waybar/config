@@ -1,0 +1,47 @@
+{
+	"height": 30,
+	"modules-left": [
+		"hyprland/workspaces"
+	],
+	"modules-center": [
+		"hyprland/window",
+	],
+	"modules-right": [
+		"cpu",
+		"pulseaudio",
+		"tray",
+		"clock"
+	],
+	"clock": {
+		"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+		"format-alt": "{:%d.%m.%y}"
+	},
+	"sway/mode": {
+		"format": "<span style=\"italic\">{}</span>"
+	},
+	"sway/workspaces": {
+		"disable-scroll": true
+	},
+	"cpu": {
+		"format": "{usage}% "
+	},
+	"pulseaudio": {
+		// "scroll-step": 1, // %, can be a float
+		"format": "{volume}% {icon}  {format_source}",
+		"format-bluetooth": "{volume}% {icon} {format_source}",
+		"format-bluetooth-muted": " {icon} {format_source}",
+		"format-muted": " {format_source}",
+		"format-source": "{volume}% ",
+		"format-source-muted": "",
+		"format-icons": {
+		    "headphone": "",
+		    "hands-free": "",
+		    "headset": "",
+		    "phone": "",
+		    "portable": "",
+		    "car": "",
+		    "default": [" ", " ", "  "]
+		},
+		"on-click": "pavucontrol"
+    },
+}
