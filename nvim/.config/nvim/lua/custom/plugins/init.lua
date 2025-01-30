@@ -6,74 +6,44 @@
 --
 return {
   {
-    'willothy/nvim-cokeline',
+    'romgrk/barbar.nvim',
     dependencies = {
-      'nvim-lua/plenary.nvim', -- Required for v0.4.0+
-      'nvim-tree/nvim-web-devicons', -- If you want devicons
-      'stevearc/resession.nvim', -- Optional, for persistent history
+      'lewis6991/gitsigns.nvim',     -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    config = function()
-      require('cokeline').setup {
-        show_if_buffers_are_at_least = 1,
-        buffers = {},
-        default_hl = {
-          fg = function(buf)
-            return buf.diagnostics.errors > 0 and '#ce1126' or buf.is_modified and '#a3ffb4' or buf.is_focused and '#26bfbf' or '#606364'
-          end,
-          bold = function(buf)
-            return buf.is_focused
-          end,
-          underline = function(buf)
-            return buf.is_focused
-          end,
-        },
-        fill_hl = 'TabLineFill',
-        sidebar = {
-          filetype = { 'neo-tree' },
-          components = {
-            {
-              text = function(buf)
-                return 'tree'
-              end,
-              bold = true,
-            },
-          },
-        },
-        components = {
-          {
-            text = function(buf)
-              return ' ' .. buf.index
-            end,
-          },
-          {
-            text = function(buf)
-              return ' ' .. buf.filename
-            end,
-          },
-          {
-            text = function(buf)
-              return buf.diagnostics.errors > 0 and ' ' .. buf.diagnostics.errors or buf.is_modified and ' M ' or ''
-            end,
-            bold = true,
-          },
-          {
-            text = function(buf)
-              return ' ' .. buf.devicon.icon
-            end,
-            fg = function(buf)
-              return buf.is_focused and buf.devicon.color or '#606364'
-            end,
-          },
-        },
-      }
-      vim.keymap.set('n', '<S-Tab>', '<Plug>(cokeline-focus-prev)', { silent = true })
-      vim.keymap.set('n', '<Tab>', '<Plug>(cokeline-focus-next)', { silent = true })
-      vim.keymap.set('n', '<Leader>bd', ':bdelete<CR>', { silent = true })
-      for i = 1, 9 do
-        vim.api.nvim_set_keymap('n', ('<F%s>'):format(i), ('<Plug>(cokeline-focus-%s)'):format(i), { silent = true })
-        vim.api.nvim_set_keymap('n', ('<Leader>%s'):format(i), ('<Plug>(cokeline-switch-%s)'):format(i), { silent = true })
-      end
+    init = function()
+      local map = vim.api.nvim_set_keymap
+      local opts = { noremap = true, silent = true }
+
+      -- Move to previous/next
+      map('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', opts)
+      map('n', '<Tab>', '<Cmd>BufferNext<CR>', opts)
+
+      -- Re-order to previous/next
+      map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+      map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+
+      -- Goto buffer in position...
+      map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+      map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+      map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+      map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+      map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+      map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+      map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+      map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+      map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+      map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
     end,
+    opts = {
+      animation = true,
+      sidebar_filetypes = {
+        ['neo-tree'] = true,
+      },
+      -- insert_at_start = true,
+      -- …etc.
+    },
+    version = '^1.0.0',
   },
   { 'habamax/vim-godot', event = 'VimEnter' },
   {
@@ -129,3 +99,4 @@ return {
     end,
   },
 }
+
