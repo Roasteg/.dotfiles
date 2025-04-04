@@ -601,81 +601,7 @@ require("lazy").setup({
 			--  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-			local servers = {
-				-- clangd = {},
-				gopls = {
-					settings = {
-						gopls = {
-							analyses = {
-								unusedparams = false,
-							},
-							hints = {
-								constantValues = true,
-								assignVariableTypes = true,
-								parameterNames = true,
-								functionTypeParameters = true,
-							},
-						},
-						staticcheck = true,
-						gofumpt = true,
-					},
-				},
-				volar = {},
-				ts_ls = {
-					filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-					init_options = {
-						plugins = {
-							{
-								name = "@vue/typescript-plugin",
-								location = vim.fn.stdpath("data")
-									.. "/mason/packages/vue-language-server/node_modules/@vue/language-server",
-								languages = { "vue" },
-							},
-						},
-					},
-				},
-				-- pyright = {},
-				-- rust_analyzer = {},
-				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-				--
-				-- Some languages (like typescript) have entire language plugins that can be useful:
-				--    https://github.com/pmizio/typescript-tools.nvim
-				--
-				-- But for many setups, the LSP (`tsserver`) will work just fine
-				-- tsserver = {},
-				--
-				html = {
-					filetypes = { "html", "templ" },
-				},
-				htmx = {
-					filetypes = { "html", "templ" },
-				},
-				tailwindcss = {
-					filetypes = { "templ", "astro", "javascript", "typescript", "react" },
-					settings = {
-						tailwindCSS = {
-							includeLanguages = {
-								templ = "html",
-							},
-						},
-					},
-				},
-				-- intelephense = {},
-				lua_ls = {
-					-- cmd = {...},
-					-- filetypes = { 'script' },
-					-- capabilities = {},
-					settings = {
-						Lua = {
-							completion = {
-								callSnippet = "Replace",
-							},
-							-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-							-- diagnostics = { disable = { 'missing-fields' } },
-						},
-					},
-				},
-			}
+			local servers = require("custom.config.servers")
 
 			-- Ensure the servers and tools above are installed
 			--  To check the current status of installed tools and/or manually install
@@ -740,7 +666,7 @@ require("lazy").setup({
 				-- python = { "isort", "black" },
 				--
 				-- You can use 'stop_after_first' to run the first available formatter from the list
-				-- javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 		},
 	},
@@ -768,12 +694,12 @@ require("lazy").setup({
 					-- `friendly-snippets` contains a variety of premade snippets.
 					--    See the README about individual language/framework/plugin snippets:
 					--    https://github.com/rafamadriz/friendly-snippets
-					-- {
-					--   'rafamadriz/friendly-snippets',
-					--   config = function()
-					--     require('luasnip.loaders.from_vscode').lazy_load()
-					--   end,
-					-- },
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
 				},
 			},
 			"saadparwaiz1/cmp_luasnip",
@@ -855,7 +781,7 @@ require("lazy").setup({
 					-- Manually trigger a completion from nvim-cmp.
 					--  Generally you don't need this, because nvim-cmp will display
 					--  completions whenever it has completion options available.
-					["<C-Space>"] = cmp.mapping.complete({}),
+					["<C-K>"] = cmp.mapping.complete({}),
 
 					-- Think of <c-l> as moving to the right of your snippet expansion.
 					--  So if you have a snippet that's like:
@@ -1024,11 +950,11 @@ require("lazy").setup({
 	--  Uncomment any of the lines below to enable them (you will need to restart nvim).
 	--
 	-- require 'kickstart.plugins.debug',
-	-- require 'kickstart.plugins.indent_line',
+	require("kickstart.plugins.indent_line"),
 	-- require 'kickstart.plugins.lint',
 	-- require 'kickstart.plugins.autopairs',
 	require("kickstart.plugins.neo-tree"),
-	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+	require("kickstart.plugins.gitsigns"), -- adds gitsigns recommend keymaps
 	-- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
 	--    This is the easiest way to modularize your config.
 	--
