@@ -1,3 +1,5 @@
+# Add deno completions to search path
+if [[ ":$FPATH:" != *":/home/rostislav/.zsh/completions:"* ]]; then export FPATH="/home/rostislav/.zsh/completions:$FPATH"; fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -72,6 +74,8 @@ ZSH_THEME="refined"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git z zsh-syntax-highlighting zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
 
+zstyle ':autocomplete:*' delay 1
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -116,6 +120,7 @@ export PATH=~/go/bin:$PATH
 [ -s "/home/roosic/.bun/_bun" ] && source "/home/roosic/.bun/_bun"
 
 # bun
+alias hx="helix"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PODMAN_IGNORE_CGROUPSV1_WARNING=1
@@ -123,3 +128,7 @@ export PATH=$HOME/.config/composer/vendor/bin:$PATH
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+. "/home/rostislav/.deno/env"
+# Initialize zsh completions (added by deno install script)
+autoload -Uz compinit
+compinit

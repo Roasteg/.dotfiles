@@ -10,7 +10,7 @@ return {
 				tab_char = "│",
 			},
 
-			scope = { show_start = true, show_end = true },
+			scope = { show_start = true, show_end = false },
 			exclude = {
 				filetypes = {
 					"Trouble",
