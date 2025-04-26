@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@vue/typescript-plugin": "^2.2.10"
+  }
+}
