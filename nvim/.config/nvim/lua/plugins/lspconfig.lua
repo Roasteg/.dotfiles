@@ -39,7 +39,6 @@ return {
             },
           },
         })
-        return true
       end,
     },
   },

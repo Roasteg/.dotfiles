@@ -5,6 +5,9 @@ return {
       trigger = {
         show_on_blocked_trigger_characters = { " ", "\n", "\t", "{", "}", "{}" },
       },
+      ghost_text = {
+        enabled = false,
+      },
     },
     sources = {
       per_filetype = { tsx = { "lsp", "snippets" } },
