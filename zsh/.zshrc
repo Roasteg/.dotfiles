@@ -10,7 +10,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="refined"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -72,11 +72,24 @@ ZSH_THEME="refined"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z zsh-syntax-highlighting zsh-autosuggestions fast-syntax-highlighting zsh-autocomplete)
 
-zstyle ':autocomplete:*' delay 1
-
+plugins=(git 
+  z 
+  zsh-syntax-highlighting 
+  zsh-autosuggestions 
+  zsh-autocomplete
+  # fast-syntax-highlighting
+)
 source $ZSH/oh-my-zsh.sh
+
+fpath+=($HOME/.zsh/pure)
+autoload -Uz promptinit && promptinit
+
+zstyle :prompt:pure:git:stash show yes
+
+prompt pure
+
+unsetopt pathdirs
 
 # User configuration
 
@@ -120,10 +133,8 @@ export PATH=~/go/bin:$PATH
 [ -s "/home/roosic/.bun/_bun" ] && source "/home/roosic/.bun/_bun"
 
 # bun
-alias hx="helix"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PODMAN_IGNORE_CGROUPSV1_WARNING=1
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -140,4 +151,3 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-fpath+=~/.zfunc; autoload -Uz compinit; compinit
