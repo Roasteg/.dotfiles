@@ -4,7 +4,19 @@ return {
   opts = {
     ---@type lspconfig.options
     servers = {
-      vtsls = {},
+      vtsls = {
+        tsserver = {
+          globalPlugins = {
+            {
+              name = "@vue/typescript-plugin",
+              location = LazyVim.get_pkg_path("vue-language-server", "/node_modules/@vue/language-server"),
+              languages = { "vue" },
+              configNamespace = "typescript",
+              enableForWorkspaceTypeScriptVersions = true,
+            },
+          },
+        },
+      },
       pyright = {},
       eslint = {},
       bashls = {},
@@ -13,33 +25,39 @@ return {
       css_variables = {},
       cssmodules_ls = {},
       tailwindcss = {},
-      volar = {},
-    },
-
-    ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-    setup = {
-      vtsls = function(_, opts)
-        require("lspconfig").vtsls.setup({
-          server = opts,
-          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue" },
-          settings = {
-            vtsls = {
-              tsserver = {
-                globalPlugins = {
-                  {
-                    name = "@vue/typescript-plugin",
-                    location = require("mason-registry").get_package("vue-language-server"):get_install_path()
-                      .. "/node_modules/@vue/language-server",
-                    languages = { "vue" },
-                    configNamespace = "typescript",
-                    enableForWorkspaceTypeScriptVersions = true,
-                  },
-                },
-              },
+      volar = {
+        init_options = {
+          vue = {
+            hybridMode = true,
+          },
+        },
+      },
+      intelephense = {
+        settings = {
+          intelephense = {
+            format = {
+              enable = false,
             },
           },
-        })
-      end,
+        },
+      },
+      phpactor = {
+        filetypes = { "php" },
+        setup = {
+          init_options = {
+            ["language_server_phpstan.enabled"] = false,
+            ["language_server_psalm.enabled"] = false,
+            ["indexer.exclude_patterns"] = {
+              "/vendor/**/Tests",
+              "/vendor/**/tests/**/*",
+              "/vendor/composer/**/*",
+              "/generated/**/*",
+              "/upload/**",
+              "/assets/**",
+            },
+          },
+        },
+      },
     },
   },
 }
