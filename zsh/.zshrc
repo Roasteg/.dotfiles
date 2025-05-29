@@ -80,6 +80,9 @@ plugins=(git
   zsh-autocomplete
   # fast-syntax-highlighting
 )
+
+zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 3 )) )'
+
 source $ZSH/oh-my-zsh.sh
 
 fpath+=($HOME/.zsh/pure)
@@ -136,6 +139,7 @@ export PATH=~/go/bin:$PATH
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH=$HOME/.config/composer/vendor/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

@@ -8,3 +8,5 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 
 vim.cmd("colorscheme nordfox")
+
+vim.lsp.set_log_level("off")

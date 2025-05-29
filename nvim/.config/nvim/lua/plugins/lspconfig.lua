@@ -1,26 +1,27 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
       servers = {
         pyright = {},
-        eslint = {},
         bashls = {},
         sqlls = {},
         cssls = {},
         css_variables = {},
         cssmodules_ls = {},
         tailwindcss = {
-          filetypes = { "css", "scss", "vue", "html", "javascriptreact", "typescriptreact", "typescript", "javascript" },
-          settings = {
-            tailwindCSS = {
-              classAttributes = { "class", "ui" },
-              experimental = {
-                classRegex = { { "ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)" } },
-              },
-            },
+          filetypes_include = {
+            "css",
+            "scss",
+            "vue",
+            "html",
+            "javascriptreact",
+            "typescriptreact",
+            "typescript",
+            "javascript",
           },
         },
         intelephense = {
@@ -50,6 +51,19 @@ return {
           },
         },
       },
+    },
+    setup = {
+      tailwindcss = function(_, opts)
+        opts.settings = {
+          tailwindCSS = {
+            classAttributes = { "class", "ui", "className" },
+            classFunctions = { "cva", "cx" },
+            experimental = {
+              classRegex = { { "ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)" } },
+            },
+          },
+        }
+      end,
     },
   },
 }
