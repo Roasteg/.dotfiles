@@ -17,10 +17,18 @@ return {
     local cmp = require("cmp")
     local defaults = require("cmp.config.default")()
     local auto_select = true
+    if LazyVim.has("nvim-snippets") then
+      table.insert(opts.sources, { name = "snippets" })
+    end
     return {
       auto_brackets = {}, -- configure any filetype to auto add brackets
       completion = {
         completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
+      },
+      snippet = {
+        expand = function(item)
+          return LazyVim.cmp.expand(item.body)
+        end,
       },
       preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
       mapping = cmp.mapping.preset.insert({

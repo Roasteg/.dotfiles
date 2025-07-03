@@ -12,6 +12,9 @@ return {
         cssls = {},
         css_variables = {},
         cssmodules_ls = {},
+        dartls = {
+          cmd = { "fvm", "dart", "language-server", "--protocol=lsp" },
+        },
         tailwindcss = {
           filetypes_include = {
             "css",
