@@ -12,9 +12,6 @@ return {
         cssls = {},
         css_variables = {},
         cssmodules_ls = {},
-        dartls = {
-          cmd = { "fvm", "dart", "language-server", "--protocol=lsp" },
-        },
         tailwindcss = {
           filetypes_include = {
             "css",
@@ -36,23 +33,21 @@ return {
             },
           },
         },
-        phpactor = {
-          filetypes = { "php" },
-          setup = {
-            init_options = {
-              ["language_server_phpstan.enabled"] = false,
-              ["language_server_psalm.enabled"] = false,
-              ["indexer.exclude_patterns"] = {
-                "/vendor/**/Tests",
-                "/vendor/**/tests/**/*",
-                "/vendor/composer/**/*",
-                "/generated/**/*",
-                "/upload/**",
-                "/assets/**",
-              },
-            },
-          },
-        },
+        -- phpactor = { filetypes = { "php" }, setup = {
+        --     init_options = {
+        --       ["language_server_phpstan.enabled"] = false,
+        --       ["language_server_psalm.enabled"] = false,
+        --       ["indexer.exclude_patterns"] = {
+        --         "/vendor/**/Tests",
+        --         "/vendor/**/tests/**/*",
+        --         "/vendor/composer/**/*",
+        --         "/generated/**/*",
+        --         "/upload/**",
+        --         "/assets/**",
+        --       },
+        --     },
+        --   },
+        -- },
       },
     },
     setup = {
