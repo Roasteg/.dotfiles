@@ -5,6 +5,9 @@ return {
     ---@class PluginLspOpts
     opts = {
       ---@type lspconfig.options
+      folds = {
+        enabled = false,
+      },
       servers = {
         pyright = {},
         bashls = {},
